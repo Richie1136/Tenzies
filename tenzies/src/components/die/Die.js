@@ -1,8 +1,9 @@
+import './Die.css'
 
 const Die = ({ value }) => {
   return (
-    <div>
-      <p>{value}</p>
+    <div className="die-face">
+      <p className='value'>{value}</p>
     </div>
   )
 }
