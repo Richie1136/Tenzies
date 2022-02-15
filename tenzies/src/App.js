@@ -2,6 +2,14 @@ import './App.css';
 import Die from './components/die/Die'
 
 function App() {
+  const allNewDice = () => {
+    let result = []
+    for (let i = 0; i < 10; i++) {
+      result.push(Math.floor(Math.random() * 6) + 1)
+    }
+    return result
+  }
+  console.log(allNewDice())
   return (
     <div className="App">
       <h2>Tenzies App</h2>
