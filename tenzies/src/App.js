@@ -7,7 +7,7 @@ function App() {
   const allNewDice = () => {
     let result = []
     for (let i = 0; i < 10; i++) {
-      result.push({ value: Math.floor(Math.random() * 6) + 1, isHeld: true, id: nanoid() })
+      result.push({ value: Math.floor(Math.random() * 6) + 1, isHeld: false, id: nanoid() })
     }
     return result
   }
@@ -18,12 +18,17 @@ function App() {
     setNumbers(allNewDice())
   }
 
+  const holdDice = (id) => {
+    console.log(id)
+  }
+
   return (
     <div className="App">
       <h2>Tenzies App</h2>
       <div className='container'>
         {numbers.map((num) => {
-          return <Die key={num.id} isHeld={num.isHeld} value={num.value} />
+          return <Die id={num.id} key={num.id} isHeld={num.isHeld} value={num.value} hold={() => holdDice(num.id)} />
+
         })}
       </div>
       <button className='roll-dice' onClick={rollDice}>Roll Dice</button>
