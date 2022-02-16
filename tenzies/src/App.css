@@ -37,6 +37,7 @@ body {
   color: white;
   font-size: 19.2px;
   font-family: "Karla", sans-serif;
+  cursor: pointer;
 }
 
 .roll-dice:active {
