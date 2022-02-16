@@ -25,7 +25,7 @@ function App() {
           return <Die value={num} />
         })}
       </div>
-      <button onClick={rollDice}>Roll Dice</button>
+      <button className='roll-dice' onClick={rollDice}>Roll Dice</button>
     </div>
   );
 }
