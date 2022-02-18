@@ -1,6 +1,6 @@
 import './App.css';
 import Die from './components/die/Die'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { nanoid } from 'nanoid'
 
 function App() {
@@ -21,17 +21,28 @@ function App() {
   }
 
 
-  const [numbers, setNumbers] = useState(allNewDice())
+  const [dice, setDice] = useState(allNewDice())
+  const [tenzies, setTenzies] = useState(false)
+
+
+  useEffect(() => {
+    const firstValue = dice[0].value
+    const allValue = dice.every(die => die.value === firstValue)
+    if (dice.every(die => die.isHeld) && allValue) {
+      setTenzies(true)
+      console.log("You Won!")
+    }
+  }, [dice])
+
 
   const rollDice = (id) => {
-    setNumbers(oldDice => oldDice.map((num) => {
+    setDice(oldDice => oldDice.map((num) => {
       return num.isHeld ? num : generateNewDie()
     }))
   }
 
   const holdDice = (id) => {
-    console.log(id)
-    setNumbers(oldDice => oldDice.map((num) => {
+    setDice(oldDice => oldDice.map((num) => {
       return num.id === id ?
         { ...num, isHeld: !num.isHeld } : num
     }))
@@ -45,7 +56,7 @@ function App() {
         current value between rolls.
       </p>
       <div className='container'>
-        {numbers.map((num) => {
+        {dice.map((num) => {
           return <Die id={num.id} key={num.id} isHeld={num.isHeld} value={num.value} hold={() => holdDice(num.id)} />
 
         })}
