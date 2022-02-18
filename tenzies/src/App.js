@@ -20,6 +20,10 @@ function App() {
 
   const holdDice = (id) => {
     console.log(id)
+    setNumbers(oldDice => oldDice.map((num) => {
+      return num.id === id ?
+        { ...num, isHeld: !num.isHeld } : { ...num }
+    }))
   }
 
   return (
