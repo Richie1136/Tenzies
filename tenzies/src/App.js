@@ -20,6 +20,7 @@ function App() {
     }
   }
 
+
   const [numbers, setNumbers] = useState(allNewDice())
 
   const rollDice = (id) => {
@@ -29,6 +30,7 @@ function App() {
   }
 
   const holdDice = (id) => {
+    console.log(id)
     setNumbers(oldDice => oldDice.map((num) => {
       return num.id === id ?
         { ...num, isHeld: !num.isHeld } : num
@@ -37,7 +39,11 @@ function App() {
 
   return (
     <div className="App">
-      <h2>Tenzies App</h2>
+      <h1 className='title'>Tenzies</h1>
+      <p className='instructions'>
+        Roll until all dice are the same. Click each die to freeze it at its
+        current value between rolls.
+      </p>
       <div className='container'>
         {numbers.map((num) => {
           return <Die id={num.id} key={num.id} isHeld={num.isHeld} value={num.value} hold={() => holdDice(num.id)} />
