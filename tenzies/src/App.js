@@ -48,6 +48,10 @@ function App() {
     }))
   }
 
+  const buttonTitle = tenzies === true ? <button className='roll-dice' onClick={rollDice}>New Game</button> : <button className='roll-dice' onClick={rollDice}>Roll Dice</button>
+
+
+
   return (
     <div className="App">
       <h1 className='title'>Tenzies</h1>
@@ -61,7 +65,7 @@ function App() {
 
         })}
       </div>
-      <button className='roll-dice' onClick={rollDice}>Roll Dice</button>
+      <button className='roll-dice' onClick={rollDice}>{buttonTitle}</button>
     </div>
   );
 }
