@@ -42,9 +42,14 @@ function App() {
 
 
   const rollDice = (id) => {
-    setDice(oldDice => oldDice.map((num) => {
-      return num.isHeld ? num : generateNewDie()
-    }))
+    if (!tenzies) {
+      setDice(oldDice => oldDice.map((num) => {
+        return num.isHeld ? num : generateNewDie()
+      }))
+    } else {
+      setTenzies(false)
+      setDice(allNewDice())
+    }
   }
 
   const holdDice = (id) => {
@@ -54,12 +59,13 @@ function App() {
     }))
   }
 
-  const buttonTitle = tenzies === true ? <button className='roll-dice' onClick={rollDice}>New Game</button> : <button className='roll-dice' onClick={rollDice}>Roll Dice</button>
+  const buttonTitle = tenzies ? <button className='roll-dice' onClick={rollDice}>New Game</button> : <button className='roll-dice' onClick={rollDice}>Roll Dice</button>
 
 
 
   return (
     <div className="App">
+      {tenzies && <Confetti width={width} height={height} />}
       <h1 className='title'>Tenzies</h1>
       <p className='instructions'>
         Roll until all dice are the same. Click each die to freeze it at its
@@ -70,7 +76,6 @@ function App() {
           return <Die id={num.id} key={num.id} isHeld={num.isHeld} value={num.value} hold={() => holdDice(num.id)} />
         })}
       </div>
-      {tenzies === true ? <Confetti width={width} height={height} /> : null}
       <button className='roll-dice' onClick={rollDice}>{buttonTitle}</button>
     </div>
   );
