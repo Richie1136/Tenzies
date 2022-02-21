@@ -2,8 +2,14 @@ import './App.css';
 import Die from './components/die/Die'
 import { useState, useEffect } from 'react'
 import { nanoid } from 'nanoid'
+import Confetti from 'react-confetti';
+import useWindowSize from 'react-use/lib/useWindowSize'
+
+
 
 function App() {
+  const { width, height } = useWindowSize()
+
   const allNewDice = () => {
     let result = []
     for (let i = 0; i < 10; i++) {
@@ -62,9 +68,9 @@ function App() {
       <div className='container'>
         {dice.map((num) => {
           return <Die id={num.id} key={num.id} isHeld={num.isHeld} value={num.value} hold={() => holdDice(num.id)} />
-
         })}
       </div>
+      {tenzies === true ? <Confetti width={width} height={height} /> : null}
       <button className='roll-dice' onClick={rollDice}>{buttonTitle}</button>
     </div>
   );
