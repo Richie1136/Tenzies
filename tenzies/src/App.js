@@ -85,10 +85,11 @@ function App() {
 
   return (
     <div className="App">
-      <p>Time: {currentCount} Seconds</p>
-      <button onClick={reset}>Reset</button>
+
       {tenzies && <Confetti width={width} height={height} />}
       <h1 className='title'>Tenzies</h1>
+      <p>Timer: {currentCount} Seconds</p>
+      <button className='reset' onClick={reset}>Reset</button>
       <p className='instructions'>
         Roll until all dice are the same. Click each die to freeze it at its
         current value between rolls.
