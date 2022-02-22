@@ -28,6 +28,7 @@ function App() {
 
 
   const [dice, setDice] = useState(allNewDice())
+  const [seconds, setSeconds] = useState(0)
   const [tenzies, setTenzies] = useState(false)
 
 
@@ -36,10 +37,29 @@ function App() {
     const allValue = dice.every(die => die.value === firstValue)
     if (dice.every(die => die.isHeld) && allValue) {
       setTenzies(true)
-      console.log("You Won!")
     }
   }, [dice])
 
+
+  useEffect(() => {
+    let interval = null
+    if (!tenzies) {
+      interval = setInterval(() => {
+        setSeconds(prevSeconds => prevSeconds + 1)
+      }, 1000);
+    } else if (tenzies && seconds !== 0) {
+      clearInterval(interval)
+    }
+
+    return () => clearInterval(interval)
+  }, [seconds, tenzies])
+
+
+  const currentCount = seconds
+
+  const reset = () => {
+    setSeconds(0)
+  }
 
   const rollDice = (id) => {
     if (!tenzies) {
@@ -65,6 +85,8 @@ function App() {
 
   return (
     <div className="App">
+      <p>Time: {currentCount} Seconds</p>
+      <button onClick={reset}>Reset</button>
       {tenzies && <Confetti width={width} height={height} />}
       <h1 className='title'>Tenzies</h1>
       <p className='instructions'>
